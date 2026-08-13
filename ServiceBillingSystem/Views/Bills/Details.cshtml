@@ -1,0 +1,75 @@
+﻿<div class="bill-details-page">
+
+    <div class="bill-details-box">
+
+        <h2>Bill Details</h2>
+
+        <div class="bill-detail-row">
+            <span>Bill No</span>
+            <strong>@Model.BillNumber</strong>
+        </div>
+
+        <div class="bill-detail-row">
+            <span>Customer</span>
+            <strong>@Model.Customer?.Name</strong>
+        </div>
+        <br/>
+
+     
+        <h2>Service Details</h2>
+
+        @foreach (var item in Model.BillItems)
+        {
+            <div class="bill-detail-row">
+                <span>Service</span>
+                <strong>@item.Service?.Name</strong>
+            </div>
+
+            <div class="bill-detail-row">
+                <span>Quantity</span>
+                <strong>@item.Quantity</strong>
+            </div>
+
+            <div class="bill-detail-row">
+                <span>Unit Price</span>
+                <strong>₹@item.UnitPrice.ToString("0.00")</strong>
+            </div>
+
+            <div class="bill-detail-row">
+                <span>Service Total</span>
+                <strong>₹@item.Total.ToString("0.00")</strong>
+            </div>
+        }
+
+        <div class="bill-detail-row">
+            <span>Subtotal</span>
+            <strong>₹@Model.SubTotal.ToString("0.00")</strong>
+        </div>
+
+        <div class="bill-detail-row">
+            <span>Discount</span>
+            <strong>₹@Model.Discount.ToString("0.00")</strong>
+        </div>
+
+        <div class="bill-detail-row">
+            <span>GST (18%)</span>
+            <strong>₹@Model.Tax.ToString("0.00")</strong>
+        </div>
+
+        <div class="bill-detail-row grand-total-row">
+            <span>Grand Total</span>
+            <strong>₹@Model.GrandTotal.ToString("0.00")</strong>
+        </div>
+
+        <div class="bill-details-actions">
+
+            <a href="/Bills/Pdf/@Model.Id"
+               class="btn btn-success">
+                Print / Download PDF
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

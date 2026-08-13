@@ -1,0 +1,89 @@
+﻿@model ServiceBillingSystem.Models.User
+
+<div class="staff-create-page">
+
+    <div class="staff-create-box">
+
+        <div class="staff-create-header">
+            <h2>Add Staff</h2>
+            <p>Enter the details of the new staff member.</p>
+        </div>
+
+        <form asp-controller="Users"
+              asp-action="AddStaff"
+              method="post">
+
+            <div asp-validation-summary="All"
+                 class="text-danger mb-3">
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Name"
+                       class="form-label">
+                </label>
+
+                <input asp-for="Name"
+                       class="form-control"
+                       placeholder="Enter staff name" />
+
+                <span asp-validation-for="Name"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Email"
+                       class="form-label">
+                </label>
+
+                <input asp-for="Email"
+                       type="email"
+                       class="form-control"
+                       placeholder="Enter email address" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label asp-for="Password"
+                       class="form-label">
+                </label>
+
+                <input asp-for="Password"
+                       type="password"
+                       class="form-control"
+                       placeholder="Enter password" />
+
+                <span asp-validation-for="Password"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+            <div class="staff-create-buttons">
+
+                <a asp-controller="Users"
+                   asp-action="Staff"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Add Staff
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

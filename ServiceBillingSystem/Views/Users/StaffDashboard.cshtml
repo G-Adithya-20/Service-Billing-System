@@ -1,0 +1,154 @@
+﻿@using Microsoft.EntityFrameworkCore
+
+<div class="staff-dashboard">
+
+    <div class="dashboard-content">
+
+        <h2 class="text-center mb-2">
+            Staff Dashboard
+        </h2>
+
+        <p class="text-center text-muted">
+            Manage customers and billing from here
+        </p>
+
+        <hr />
+
+ 
+        <div class="row text-center mb-4 justify-content-center">
+
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm dashboard-card">
+
+                    <div class="card-body">
+
+                        <h5>Customers</h5>
+
+                        <h2>
+                            @ViewBag.TotalCustomers
+                        </h2>
+
+                        <p class="text-muted">
+                            Registered customers
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm dashboard-card">
+
+                    <div class="card-body">
+
+                        <h5>Total Bills</h5>
+
+                        <h2>
+                            @ViewBag.TotalBills
+                        </h2>
+
+                        <p class="text-muted">
+                            Bills generated
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <h4 class="text-center mb-3">
+            Quick Actions
+        </h4>
+
+        <div class="row text-center">
+
+            <div class="col-md-4 mb-3">
+
+                <div class="card action-card">
+
+                    <div class="card-body">
+
+                        <h5>Customers</h5>
+
+                        <p>
+                            Add a new customer
+                        </p>
+
+                        <a asp-controller="Customers"
+                           asp-action="Create"
+                           class="btn btn-primary">
+
+                            Add Customer
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4 mb-3">
+
+                <div class="card action-card">
+
+                    <div class="card-body">
+
+                        <h5>Billing</h5>
+
+                        <p>
+                            Create a new service bill
+                        </p>
+
+                        <a asp-controller="Bills"
+                           asp-action="Create"
+                           class="btn btn-primary">
+
+                            Create Bill
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4 mb-3">
+
+                <div class="card action-card">
+
+                    <div class="card-body">
+
+                        <h5>Bills</h5>
+
+                        <p>
+                            View previous bills
+                        </p>
+
+                        <a asp-controller="Bills"
+                           asp-action="Index"
+                           class="btn btn-success">
+
+                            View Bills
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

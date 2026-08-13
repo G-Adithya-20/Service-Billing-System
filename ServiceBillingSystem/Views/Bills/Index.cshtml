@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ServiceBillingSystem.Models.Bill>
+
+@{
+    ViewData["Title"] = "Bills";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Bill Details</h2>
+
+        @if (User.IsInRole("Staff"))
+        {
+            <a asp-controller="Bills"
+               asp-action="Create"
+               class="btn btn-primary">
+                + Create Bill
+            </a>
+        }
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover">
+
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Bill No</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Staff</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var bill in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @bill.BillNumber
+                                </td>
+
+                                <td>
+                                    @bill.BillDate.ToString("dd-MM-yyyy")
+                                </td>
+
+                                <td>
+                                    @bill.Customer?.Name
+                                </td>
+
+                                <td>
+                                    @bill.Staff?.Name
+                                </td>
+
+                                <td>
+                                    ₹@bill.GrandTotal.ToString("N2")
+                                </td>
+
+                                <td>
+                                    @bill.PaymentStatus
+                                </td>
+
+                                <td>
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@bill.Id"
+                                       class="btn btn-sm btn-info">
+                                        View
+                                    </a>
+
+                                    <a asp-action="Pdf"
+                                       asp-route-id="@bill.Id"
+                                       class="btn btn-sm btn-success">
+                                        PDF
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

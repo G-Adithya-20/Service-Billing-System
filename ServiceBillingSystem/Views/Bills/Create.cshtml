@@ -1,0 +1,298 @@
+﻿<div class="bill-page">
+
+ <div class="bill-box">
+<h2>Create Bill</h2>
+
+<label>Customer Name</label>
+
+<input type="text"
+       id="customerSearch"
+       class="form-control"
+      />
+
+<br />
+
+<label>Service</label>
+
+<input type="text"
+       id="serviceSearch" @*js*@
+       class="form-control"
+       placeholder="Search service..." />
+
+<div id="serviceResults" class="mt-2"></div>  @*js*@
+<br />
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr> @*js(one service row is created for each selected service)*@
+            <th>Service</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody id="billItems"> @*js(selected service placed here)*@
+    </tbody>
+
+</table>
+
+<div class="bill-summary">
+
+    <div class="summary-row">
+        <span>Subtotal</span>
+        <span>₹<span id="subtotal">0</span></span>
+    </div>
+
+    <div class="summary-row discount-row">
+        <label for="discount">Discount</label>
+
+        <input type="number"
+               id="discount"
+               value="0"
+               min="0"
+               class="form-control" />
+    </div>
+
+    <div class="summary-row">
+        <span>GST (18%)</span>
+        <span>₹<span id="tax">0</span></span>
+    </div>
+
+    <hr />
+
+    <div class="summary-total">
+        <span>Grand Total</span>
+        <span>₹<span id="grandTotal">0</span></span>
+    </div>
+
+    <button class="btn btn-primary generate-btn" onclick="generateBill()">
+        Generate Bill
+    </button>
+
+</div>
+
+<script>
+    console.log("BILL PAGE SCRIPT LOADED");
+
+const serviceSearch = document.getElementById("serviceSearch"); //connect js to html
+
+const serviceResults =document.getElementById("serviceResults");
+
+// console.log("serviceSearch:", serviceSearch);
+// console.log("serviceResults:", serviceResults);
+  
+ serviceSearch.addEventListener("input", function () //Run this code - user types,deletes or changes the text.
+    {
+        // console.log("INPUT EVENT FIRED");
+        const term = this.value.trim();  //serviceSearch input(current value inside HTML input element)
+        // console.log("Searching:", term);
+
+        if (term.length < 2) {
+            serviceResults.innerHTML = "";
+            return;
+        }
+
+        fetch("/Services/Search?term=" + encodeURIComponent(term)) //calls service search()
+
+            .then(response => response.json())
+
+            .then(data => 
+                {
+
+                serviceResults.innerHTML = "";  //remove old suggestions
+
+                data.forEach(service => //loop through the results and create a div for each service suggestion
+                    {
+
+                    const div = document.createElement("div");
+
+                    div.className = "border p-2";
+
+                    div.style.cursor = "pointer";
+
+                    div.innerHTML =
+                        service.name +
+                        " - ₹" +
+                        service.price;
+
+                  div.addEventListener("click",function () //when user clicks on a suggestion add the service to the bill 
+                    {
+                            addService( //calls other js function to add service to bill table
+                            service.id,
+                            service.name,
+                            service.price
+                            );
+                               serviceSearch.value =service.name;//selected service name is displayed in the search box
+                               serviceResults.innerHTML =""; //after selecting a service, the autocomplete suggestion disappears
+                    }  );
+
+                    serviceResults.appendChild(div); //add the suggestion to the serviceResults div
+                });
+            })
+            .catch(error => {
+                console.error("Service search error:",error );
+            });
+    });
+
+    //adds selected service to the bill table.
+    function addService(id, name, price) {
+
+        const tbody = document.getElementById("billItems");//selected service placed here
+
+        const row = document.createElement("tr"); //one service row is created for each selected service
+        row.dataset.serviceId = id; //service id is stored in the row's dataset for later use when generating the bill
+
+        row.innerHTML = `
+                    <td>${name}</td>
+
+                    <td>
+                        <input type="number"
+                               value="1"
+                               min="1"
+                               class="quantity">
+                              
+                    </td>
+
+                    <td class="price">
+                        ${price}
+                    </td>
+
+                    <td class="itemTotal">
+                        ${price}
+                    </td>
+                `;
+
+        tbody.appendChild(row); //add row to table(selected service)
+
+        // Recalculate when quantity changes
+
+        const quantityInput = row.querySelector(".quantity");
+        quantityInput.addEventListener("change",calculateTotal  );
+      
+        calculateTotal();
+    }
+
+    function calculateTotal()
+{
+    const rows = document.querySelectorAll("#billItems tr");//every row inside it
+
+    let subtotal = 0;
+    //loop throughevery item
+    rows.forEach(row =>
+    {
+        let quantity = parseInt(row.querySelector(".quantity").value) || 0;
+
+        let price = parseFloat(row.querySelector(".price").innerText) || 0;
+
+        let total = quantity * price;
+
+        row.querySelector(".itemTotal").innerText =total.toFixed(2);//formats the number to 2 decimal places.
+
+        subtotal += total;
+    });
+
+    // GST is calculated on the original subtotal
+    let tax = subtotal * 0.18;
+
+    // Discount only reduces the final amount
+    let discount = parseFloat(document.getElementById("discount").value) || 0; //gives 0 when vlaue cannot be converted
+
+    let grandTotal =Math.max(0, subtotal + tax - discount);
+
+    document.getElementById("subtotal").innerText = subtotal.toFixed(2);
+
+    document.getElementById("tax").innerText =tax.toFixed(2);
+
+    document.getElementById("grandTotal").innerText =grandTotal.toFixed(2);
+}
+    //Total updates immediately when you type a discount
+    document.getElementById("discount").addEventListener("input", calculateTotal);
+
+    function generateBill()
+{
+    const customerName =document.getElementById("customerSearch").value.trim();
+    if (customerName === "")
+    {
+        alert("Please enter customer name");
+        return;
+    }
+    const rows = document.querySelectorAll("#billItems tr"); //selected srvice
+
+   if (rows.length === 0) //prevent creationg bill with no service
+    {
+        alert("Please select at least one service");
+        return;
+    }
+
+    const items = [];
+    //collect each service(C# get price from backend)
+    rows.forEach(row =>
+    {
+        const serviceId =parseInt(row.dataset.serviceId);
+
+        const quantity =parseInt(row.querySelector(".quantity").value);
+
+        items.push({serviceId: serviceId,quantity: quantity});
+    });
+
+
+    const discount =parseFloat(document.getElementById("discount").value) || 0;
+
+    const billData =
+    {
+        customerName: customerName,
+
+        discount: discount,
+
+        items: items
+    };
+
+    //send bill to billscontroller
+    fetch("/Bills/Create",
+    {
+        method: "POST",
+
+        headers:
+        {
+            "Content-Type":"application/json" //Tells the server:The data is in JSON format.Without this ASP.NET may not know that the request body contains JSON.
+        },
+
+        body:
+            JSON.stringify(billData) (//json object to json text)
+    })
+
+    .then(response =>
+    {
+        if (!response.ok)
+        {
+            return response.text()
+                .then(message =>
+                {
+                    throw new Error(message);
+                });
+        }
+
+        return response.json();
+    })
+
+    .then(data =>
+    {
+        if (data.success)
+        {
+            window.location.href ="/Bills/Details/" + data.id;
+        }
+    })
+
+    .catch(error =>
+    {
+        alert(error.message);
+        console.error(error);
+    });
+}
+</script>
+
+  </div>
+
+</div>

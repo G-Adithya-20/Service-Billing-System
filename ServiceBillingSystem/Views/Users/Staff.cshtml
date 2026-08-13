@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ServiceBillingSystem.Models.User>
+
+<div class="staff-management">
+
+    <div class="staff-management-box">
+
+        <div class="staff-header">
+
+            <div>
+                <h2>Staff Management</h2>
+                <p class="text-muted">
+                    Manage staff members
+                </p>
+            </div>
+
+            <a asp-controller="Users"
+               asp-action="AddStaff"
+               class="btn btn-primary">
+
+                + Add Staff
+
+            </a>
+
+        </div>
+
+        <hr />
+
+        <table class="table table-bordered table-hover">
+
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var staff in Model)
+                {
+                    <tr>
+
+                        <td>@staff.Id</td>
+
+                        <td>@staff.Name</td>
+
+                        <td>@staff.Email</td>
+
+                        <td>
+                            <span class="staff-role">
+                                @staff.Role
+                            </span>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+        <a asp-controller="Users"
+           asp-action="AdminDashboard"
+           class="btn btn-secondary">
+
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>

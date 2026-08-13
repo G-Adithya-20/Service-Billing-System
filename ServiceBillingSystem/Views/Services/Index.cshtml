@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ServiceBillingSystem.Models.Service>
+
+<div class="services-management">
+
+    <div class="services-management-box">
+
+        <div class="services-header">
+
+            <div>
+                <h2>Services</h2>
+
+                <p class="text-muted">
+                    Manage billing services
+                </p>
+            </div>
+
+            <a asp-action="Create"
+               class="btn btn-primary">
+
+                + Add Service
+
+            </a>
+
+        </div>
+
+        <hr />
+
+        <table class="table table-bordered table-hover">
+
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var service in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @service.Id
+                        </td>
+
+                        <td>
+                            @service.Name
+                        </td>
+
+                        <td>
+                            @service.Description
+                        </td>
+
+                        <td>
+                            ₹@service.Price.ToString("N2")
+                        </td>
+
+                        <td>
+                            @if (service.IsActive)
+                            {
+                                <span class="service-active">
+                                    Active
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="service-inactive">
+                                    Inactive
+                                </span>
+                            }
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

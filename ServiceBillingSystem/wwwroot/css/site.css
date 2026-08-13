@@ -1,0 +1,825 @@
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+    /*prevents your content 
+    from going underneath the navbar/footer.*/
+    body > .container {
+        
+        margin-top: 70px;
+        padding-bottom: 70px;
+    }
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.navbar .nav-link {
+    color: #333 !important;
+    margin-right: 8px;
+    border-radius: 5px;
+    padding: 8px 12px;
+    transition: 0.2s;
+}
+
+    .navbar .nav-link:hover {
+        background: #f0f0f0;
+        color: #0d6efd !important;
+    }
+
+.navbar-text {
+    color: #555;
+}
+
+.navbar .btn-danger {
+    border-radius: 6px;
+    padding: 7px 15px;
+}
+
+.login-body {
+    min-height: 100vh;
+    background-image: url("https://images.unsplash.com/photo-1649209979970-f01d950cc5ed?q=80&w=1041&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.login-page {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-box {
+    width: 430px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.90);
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+}
+
+
+    .login-box h2 {
+        font-size: 32px;
+        font-weight: 600;
+    }
+
+
+    .login-box .form-control {
+        height: 48px;
+        border-radius: 8px;
+    }
+
+
+    .login-box .btn {
+        height: 48px;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+
+.login-footer {
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: #555;
+    flex-shrink: 0;
+}
+
+
+.staff-dashboard {
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px 80px 20px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+
+.dashboard-content {
+    max-width: 1100px;
+    margin: auto;
+}
+
+
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+}
+
+
+.staff-option {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+
+
+    .staff-option:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: #555;
+    z-index: 1000;
+}
+
+.customer-page {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.customer-box {
+    width: 600px;
+    padding: 35px;
+    background: rgba(255, 255, 255, 0.90);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+}
+
+    .customer-box .form-control {
+        border-radius: 7px;
+    }
+
+    .customer-box button,
+    .customer-box a {
+        min-width: 130px;
+    }
+
+.bill-page {
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px 80px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bill-box {
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.90);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+    .bill-box h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .bill-box .form-control {
+        border-radius: 6px;
+    }
+
+#serviceResults {
+    position: absolute;
+    width: 100%;
+    max-width: 940px;
+    background: #e9f2ff;
+    border: 1px solid #b8cce6;
+    z-index: 10;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+    #serviceResults div {
+        padding: 10px;
+        color: #222;
+        background: #e9f2ff;
+    }
+
+        #serviceResults div:hover {
+            background: #cfe2ff;
+        }
+
+.bill-box table {
+    width: 100%;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.bill-box th {
+    background: #f1f1f1;
+    font-weight: 600;
+}
+
+.bill-box td,
+.bill-box th {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.bill-box button {
+    margin-top: 10px;
+}
+
+.bill-summary {
+    width: 380px;
+    margin-left: auto;
+    margin-top: 25px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 17px;
+}
+
+.discount-row {
+    gap: 20px;
+}
+
+    .discount-row label {
+        white-space: nowrap;
+    }
+
+    .discount-row input {
+        width: 200px;
+    }
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.generate-btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+.bills-page {
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px 80px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bill-box {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.90);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.bills-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+    .bills-header h2 {
+        margin: 0;
+    }
+
+.bills-box table {
+    background: white;
+}
+
+.bills-box th {
+    background: #f1f1f1;
+    font-weight: 600;
+}
+
+.bills-box td,
+.bills-box th {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.bills-box .btn {
+    margin-right: 5px;
+}
+
+#serviceResults {
+    position: absolute;
+    width: 100%;
+    max-width: 740px;
+    background: #e9f2ff;
+    border: 1px solid #b8cce6;
+    z-index: 10;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+.admin-dashboard {
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px 80px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ),
+    url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.admin-content {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.admin-card {
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid #ddd;
+    border-top: 4px solid #0d6efd;
+    border-radius: 10px;
+    padding: 20px !important;
+    transition: 0.2s;
+}
+
+    .admin-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .admin-card h5 {
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+
+    .admin-card h2 {
+        font-size: 32px;
+        font-weight: 600;
+        margin: 0;
+        color: #0d6efd;
+    }
+
+.admin-option {
+    display: block;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.88);
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: 0.2s;
+}
+
+    .admin-option:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        color: #0d6efd;
+    }
+
+
+.staff-management {
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px 80px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ),
+    url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.staff-management-box {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.90);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.staff-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .staff-header h2 {
+        margin: 0;
+    }
+
+    .staff-header p {
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+
+.staff-management table {
+    background: white;
+    margin-top: 20px;
+}
+
+.staff-management th {
+    background: #f1f1f1;
+    font-weight: 600;
+}
+
+.staff-management td,
+.staff-management th {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.staff-role {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #e9f2ff;
+    color: #0d6efd;
+}
+
+.staff-management .table-hover tbody tr:hover {
+    background: #f5f5f5;
+}
+
+
+.services-management {
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px 80px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.services-management-box {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.90);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .services-header h2 {
+        margin: 0;
+    }
+
+    .services-header p {
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+
+.services-management table {
+    background: white;
+    margin-top: 20px;
+}
+
+.services-management th {
+    background: #f1f1f1;
+    font-weight: 600;
+}
+
+.services-management td,
+.services-management th {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.services-management .table-hover tbody tr:hover {
+    background: #f5f5f5;
+}
+
+.service-active {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #d1e7dd;
+    color: #146c43;
+}
+
+.service-inactive {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #f8d7da;
+    color: #842029;
+}
+
+/* Add Service Page */
+
+.service-create-page {
+    min-height: calc(100vh - 120px);
+    padding: 50px 20px 80px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.service-create-box {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.service-create-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+    .service-create-header h2 {
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    .service-create-header p {
+        margin: 0;
+        color: #666;
+    }
+
+.service-create-box .form-label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.service-create-box .form-control {
+    border-radius: 6px;
+    padding: 10px 12px;
+}
+
+    .service-create-box .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.15);
+    }
+
+.service-create-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+    .service-create-buttons .btn {
+        min-width: 120px;
+        border-radius: 6px;
+    }
+
+.staff-create-page {
+    min-height: calc(100vh - 120px);
+    padding: 50px 20px 80px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.staff-create-box {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.staff-create-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+    .staff-create-header h2 {
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    .staff-create-header p {
+        margin: 0;
+        color: #666;
+    }
+
+.staff-create-box .form-label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.staff-create-box .form-control {
+    border-radius: 6px;
+    padding: 10px 12px;
+}
+
+    .staff-create-box .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.15);
+    }
+
+.staff-create-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+    .staff-create-buttons .btn {
+        min-width: 120px;
+        border-radius: 6px;
+    }
+
+.bill-details-page {
+    min-height: calc(100vh - 120px);
+    padding: 50px 20px 80px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url("https://img.magnific.com/free-vector/fintech-isometric-composition-with-icons-pictograms-cash-wallets-payment-transactions-with-receipt-bills-vector-illustration_1284-73753.jpg?semt=ais_test&b&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.bill-details-box {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+    .bill-details-box h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+
+.bill-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+    .bill-detail-row span {
+        color: #666;
+    }
+
+    .bill-detail-row strong {
+        color: #333;
+    }
+
+.bill-details-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .bill-details-actions .btn {
+        min-width: 200px;
+        padding: 10px 18px;
+        border-radius: 6px;
+    }
+
+.company-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f5f6f8;
+    min-height: 70vh;
+}
+
+.company-card {
+    width: 100%;
+    max-width: 550px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+    .company-card h2 {
+        margin-bottom: 25px;
+        text-align: center;
+        color: #333;
+    }
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #444;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: #198754;
+    }
+
+.btn-save {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 6px;
+    background-color: #198754;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .btn-save:hover {
+        background-color: #157347;
+    }
+
+.grand-total-row {
+    margin-top: 10px;
+    padding-top: 18px;
+    border-top: 2px solid #333;
+    border-bottom: none;
+    font-size: 20px;
+}
+
+    .grand-total-row strong {
+        color: #198754;
+    }
+

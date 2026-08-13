@@ -1,0 +1,57 @@
+﻿@model ServiceBillingSystem.Models.Company
+
+@{
+    ViewData["Title"] = "Company Details";
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+
+<div class="company-container">
+    <div class="company-card">
+
+        <h2>Company Details</h2>
+
+        <form asp-action="Save" method="post">
+
+            <div class="form-group">
+                <label asp-for="name">Company Name</label>
+                <input asp-for="name"
+                       class="form-control"
+                       placeholder="Enter company name" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="address">Address</label>
+                <textarea asp-for="address"
+                          class="form-control"
+                          rows="3"
+                          placeholder="Enter company address"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="phonenumber">Phone Number</label>
+                <input asp-for="phonenumber"
+                       class="form-control"
+                       placeholder="Enter phone number" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="email">Email</label>
+                <input asp-for="email"
+                       type="email"
+                       class="form-control"
+                       placeholder="Enter email address" />
+            </div>
+
+            <button type="submit" class="btn-save">
+                Save Company Details
+            </button>
+
+        </form>
+
+    </div>
+</div>
