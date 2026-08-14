@@ -17,4 +17,8 @@ public class User
 
     [Required(ErrorMessage = "Role is required")]
     public string Role { get; set; } = "Staff";
+
+    public bool IsInitialAdmin { get; set; }
+
+    public bool IsActive { get; set; } = true;
 }

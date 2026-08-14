@@ -19,10 +19,10 @@ public class PdfService
 
                 page.Header().Column(column =>
                 {
-                  column.Item().Row(row => => //Column means items are placed one below another
+                  column.Item().Row(row =>  //Column means items are placed one below another
                     {
                         // Company info
-                        row.RelativeItem().Column(companyColumn 
+                        row.RelativeItem().Column(companyColumn =>
                         {
                             //Item() = one element inside that row/column
                             companyColumn.Item().Text(company.name).Bold().FontSize(20);

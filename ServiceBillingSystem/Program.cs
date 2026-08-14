@@ -38,7 +38,9 @@ using (var scope = app.Services.CreateScope())
         {
             Name = "Admin12",
             Email = "admin@gmail.com",
-            Role = "Admin"
+            Role = "Admin",
+            IsInitialAdmin = true,
+            IsActive = true
         };
 
         var passwordHasher =new PasswordHasher<User>();

@@ -20,7 +20,6 @@ public class UsersController : Controller
         return View();
     }
 
-    // POST: /Account/Login
     [HttpPost]
     public IActionResult Login(string email,string password)
     {
@@ -29,6 +28,12 @@ public class UsersController : Controller
         if (user == null)
         {
             ViewBag.Error = "Invalid email or password";
+            return View();
+        }
+        // Check whether the account is active
+        if (!user.IsActive)
+        {
+            ViewBag.Error = "This account is no longer active.";
             return View();
         }
 
@@ -89,8 +94,7 @@ public class UsersController : Controller
     [HttpGet]
     public IActionResult Staff()
     {
-        var role =
-            HttpContext.Session.GetString("Role");
+        var role = HttpContext.Session.GetString("Role");
 
         if (role != "Admin")
         {
@@ -107,8 +111,7 @@ public class UsersController : Controller
     [HttpGet]
     public IActionResult AddStaff()
     {
-        var role =
-            HttpContext.Session.GetString("Role");
+        var role = HttpContext.Session.GetString("Role");
 
         if (role != "Admin")
         {
@@ -121,8 +124,7 @@ public class UsersController : Controller
     [HttpPost]
     public IActionResult AddStaff(User user)
     {
-        var role =
-            HttpContext.Session.GetString("Role");
+        var role = HttpContext.Session.GetString("Role");
 
         if (role != "Admin")
         {
@@ -182,6 +184,78 @@ public class UsersController : Controller
         return View();
     }
 
+    [HttpGet]
+    public IActionResult AddAdmin()
+    {
+        var role = HttpContext.Session.GetString("Role");
+
+        if (role != "Admin")
+        {
+            return RedirectToAction("Login");
+        }
+
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult AddAdmin(User user)
+    {
+        var role = HttpContext.Session.GetString("Role");
+
+        if (role != "Admin")
+        {
+            return RedirectToAction("Login");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return View(user);
+        }
+
+        var existingUser = _context.Users
+            .FirstOrDefault(x => x.Email == user.Email);
+
+        if (existingUser != null)
+        {
+            ModelState.AddModelError(
+                "Email",
+                "Email already exists"
+            );
+
+            return View(user);
+        }
+
+        // Create new permanent Admin
+        user.Role = "Admin";
+        user.IsInitialAdmin = false;
+        user.IsActive = true;
+
+        var passwordHasher = new PasswordHasher<User>();
+
+        user.Password =
+            passwordHasher.HashPassword(user, user.Password);
+
+        // Save the new Admin first
+        _context.Users.Add(user);
+      
+        // New Admin was successfully created.
+        // Now disable the one-time hardcoded Admin.
+
+        var initialAdmin = _context.Users
+            .FirstOrDefault(x => x.IsInitialAdmin);
+
+        if (initialAdmin != null)
+        {
+            // Soft delete the initial Admin
+            initialAdmin.IsActive = false;
+        }
+            _context.SaveChanges();
+        // Logout the hardcoded Admin
+        HttpContext.Session.Clear();
+
+
+        return RedirectToAction("AdminDashboard");
+    }
     public IActionResult Logout()
     {
         HttpContext.Session.Clear();
