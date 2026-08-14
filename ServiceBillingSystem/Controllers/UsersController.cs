@@ -194,12 +194,13 @@ public class UsersController : Controller
             return RedirectToAction("Login");
         }
 
-        return View();
+        return View(); //show form to add new Admin
     }
 
-    [HttpPost]
+    [HttpPost] //runs when admin submits the form to add new Admin
     public IActionResult AddAdmin(User user)
     {
+    //someone could manually send post request,without coming through the form
         var role = HttpContext.Session.GetString("Role");
 
         if (role != "Admin")
@@ -211,16 +212,12 @@ public class UsersController : Controller
         {
             return View(user);
         }
-
-        var existingUser = _context.Users
-            .FirstOrDefault(x => x.Email == user.Email);
+        // Check if the email already exists
+        var existingUser = _context.Users.FirstOrDefault(x => x.Email == user.Email);
 
         if (existingUser != null)
         {
-            ModelState.AddModelError(
-                "Email",
-                "Email already exists"
-            );
+            ModelState.AddModelError( "Email","Email already exists");
 
             return View(user);
         }
@@ -230,29 +227,30 @@ public class UsersController : Controller
         user.IsInitialAdmin = false;
         user.IsActive = true;
 
-        var passwordHasher = new PasswordHasher<User>();
+        var passwordHasher = new PasswordHasher<User>(); //hash password
 
-        user.Password =
-            passwordHasher.HashPassword(user, user.Password);
+        user.Password = passwordHasher.HashPassword(user, user.Password);
 
         // Save the new Admin first
         _context.Users.Add(user);
-      
+
         // New Admin was successfully created.
         // Now disable the one-time hardcoded Admin.
 
-        var initialAdmin = _context.Users
-            .FirstOrDefault(x => x.IsInitialAdmin);
+        //This searches the Users table for the first user where: IsInitialAdmin == true
+        var initialAdmin = _context.Users.FirstOrDefault(x => x.IsInitialAdmin);
 
+        //Check whether the initial Admin exists
         if (initialAdmin != null)
         {
+       
             // Soft delete the initial Admin
             initialAdmin.IsActive = false;
         }
             _context.SaveChanges();
-        // Logout the hardcoded Admin
-        HttpContext.Session.Clear();
-
+            HttpContext.Session.SetInt32("UserId",user.Id);
+            HttpContext.Session.SetString("UserName",user.Name);
+            HttpContext.Session.SetString("Role",user.Role);
 
         return RedirectToAction("AdminDashboard");
     }

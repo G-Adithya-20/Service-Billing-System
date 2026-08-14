@@ -31,7 +31,7 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
+    //if no admin user exists, create one
     if (!context.Users.Any(x => x.Role == "Admin"))
     {
         var admin = new User
