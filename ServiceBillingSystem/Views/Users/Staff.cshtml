@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<ServiceBillingSystem.Models.User>
-
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
 <div class="staff-management">
 
     <div class="staff-management-box">
@@ -33,6 +38,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
@@ -48,12 +54,33 @@
 
                         <td>@staff.Email</td>
 
-                        <td>
-                            <span class="staff-role">
-                                @staff.Role
-                            </span>
-                        </td>
+                        <td>@staff.Role</td>
 
+                        <td>
+                            @if (staff.IsActive)
+                            {
+                                <form asp-controller="Users"
+                                      asp-action="DeactivateStaff"
+                                      method="post">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@staff.Id" />
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                        Deactivate
+                                    </button>
+
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-danger">
+                                    Inactive
+                                </span>
+                            }
+                        </td>
                     </tr>
                 }
 

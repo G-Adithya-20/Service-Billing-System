@@ -62,13 +62,24 @@
                         <td>
                             @if (service.IsActive)
                             {
-                                <span class="service-active">
-                                    Active
-                                </span>
+                                <form asp-controller="Services"
+                                      asp-action="Deactivate"
+                                      method="post">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@service.Id" />
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                        Deactivate
+                                    </button>
+
+                                </form>
                             }
                             else
                             {
-                                <span class="service-inactive">
+                                <span class="text-danger">
                                     Inactive
                                 </span>
                             }

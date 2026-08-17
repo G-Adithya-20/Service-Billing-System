@@ -63,29 +63,34 @@
 
                             @if (Context.Session.GetString("Role") == "Staff")
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                       asp-controller="Customers"
-                                       asp-action="Create">
-                                        Add Customer
-                                    </a>
-                                </li>
+                                @* Show Add Customer, Create Bill and Bills only when NOT on Staff Dashboard *@
+                                @if (!(ViewContext.RouteData.Values["Controller"]?.ToString() == "Users"
+                                    && ViewContext.RouteData.Values["Action"]?.ToString() == "StaffDashboard"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           asp-controller="Customers"
+                                           asp-action="Create">
+                                            Add Customer
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                       asp-controller="Bills"
-                                       asp-action="Create">
-                                        Create Bill
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           asp-controller="Bills"
+                                           asp-action="Create">
+                                            Create Bill
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                       asp-controller="Bills"
-                                       asp-action="Index">
-                                        Bills
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           asp-controller="Bills"
+                                           asp-action="Index">
+                                            Bills
+                                        </a>
+                                    </li>
+                                }
                             }
 
 
@@ -99,30 +104,41 @@
                                     </a>
                                 </li>
 
+                                @* Show Staff and Services ONLY on Staff or Services pages *@
+
+                                @if (
+                                    (ViewContext.RouteData.Values["Controller"]?.ToString() == "Users"
+                                     && ViewContext.RouteData.Values["Action"]?.ToString() == "Staff")
+                                    ||
+                                    (ViewContext.RouteData.Values["Controller"]?.ToString() == "Services"
+                                     && ViewContext.RouteData.Values["Action"]?.ToString() == "Index")
+                                )
+                                {
                                     <li class="nav-item">
                                         <a class="nav-link"
-                                        asp-controller="Users"
-                                        asp-action="Staff">
+                                           asp-controller="Users"
+                                           asp-action="Staff">
                                             Staff
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
                                         <a class="nav-link"
-                                        asp-controller="Services"
-                                        asp-action="Index">
+                                           asp-controller="Services"
+                                           asp-action="Index">
                                             Services
                                         </a>
                                     </li>
+                                }
 
-                                    <li class="nav-item">
-                                        <a class="nav-link"
-                                            asp-controller="Users"
-                                            asp-action="AddAdmin">
-                                            Add Admin
-                                          </a>
-                                    </li>
-                                    
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       asp-controller="Users"
+                                       asp-action="AddAdmin">
+                                        Add Admin
+                                    </a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link"
                                        asp-controller="Company"
@@ -130,7 +146,6 @@
                                         Company
                                     </a>
                                 </li>
-
                                 }    
 
                         </ul>

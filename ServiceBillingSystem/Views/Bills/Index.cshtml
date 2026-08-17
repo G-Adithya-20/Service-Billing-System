@@ -55,8 +55,13 @@
                                     @bill.Customer?.Name
                                 </td>
 
-                                <td>
+                                <td class="@(bill.Staff != null && !bill.Staff.IsActive ? "inactive-staff" : "")">
                                     @bill.Staff?.Name
+
+                                    @if (bill.Staff != null && !bill.Staff.IsActive)
+                                    {
+                                        <span class="inactive-label">(Inactive)</span>
+                                    }
                                 </td>
 
                                 <td>

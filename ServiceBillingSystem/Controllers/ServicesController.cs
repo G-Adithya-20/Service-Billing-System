@@ -61,4 +61,30 @@ public class ServicesController : Controller
 
         return Json(services); //sends result back to browser(fetch) as JSON
     }
+
+    [HttpPost]
+    public IActionResult Deactivate(int id)
+    {
+        var role = HttpContext.Session.GetString("Role");
+
+        if (role != "Admin")
+        {
+            return RedirectToAction("Login");
+        }
+
+        var service = _context.Services
+            .FirstOrDefault(x => x.Id == id);
+
+        if (service == null)
+        {
+            return NotFound();
+        }
+
+        // Soft delete
+        service.IsActive = false;
+
+        _context.SaveChanges();
+
+        return RedirectToAction("Index");
+    }
 }

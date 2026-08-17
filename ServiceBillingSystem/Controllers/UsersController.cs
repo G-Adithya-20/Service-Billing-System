@@ -78,11 +78,11 @@ public class UsersController : Controller
 
         var model = new AdminDashboardViewModel
         {
-            TotalStaff =_context.Users.Count(x => x.Role == "Staff"),
+            TotalStaff =_context.Users.Count(x => x.Role == "Staff" && x.IsActive),
 
             TotalCustomers = _context.Customers.Count(),
 
-            TotalServices =_context.Services.Count(),
+            TotalServices =_context.Services.Count(x => x.IsActive),
 
             TotalBills = _context.Bills.Count()
         };
@@ -106,6 +106,32 @@ public class UsersController : Controller
 
 
         return View(staff);
+    }
+
+    [HttpPost]
+    public IActionResult DeactivateStaff(int id)
+    {
+        var role = HttpContext.Session.GetString("Role");
+
+        if (role != "Admin")
+        {
+            return RedirectToAction("Login");
+        }
+
+        var staff = _context.Users
+            .FirstOrDefault(x => x.Id == id && x.Role == "Staff");
+
+        if (staff == null)
+        {
+            return NotFound();
+        }
+
+        // Soft delete
+        staff.IsActive = false;
+
+        _context.SaveChanges();
+
+        return RedirectToAction("Staff");
     }
 
     [HttpGet]
@@ -147,6 +173,8 @@ public class UsersController : Controller
 
         // Public signup can create Staff only.
         user.Role = "Staff";
+        user.IsActive = true;
+        user.IsInitialAdmin = false;
 
         var passwordHasher = new PasswordHasher<User>();
 
@@ -156,7 +184,10 @@ public class UsersController : Controller
 
         _context.SaveChanges();
 
-        return RedirectToAction("Login");
+
+        TempData["SuccessMessage"] = "Staff added successfully.";
+
+        return RedirectToAction("Staff");
     }
 
     [HttpGet]
